@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
   attr_reader :password
 
@@ -28,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def is_password?(password)
-    BCrypt::Password.is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
 end
