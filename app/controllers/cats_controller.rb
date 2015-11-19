@@ -26,7 +26,12 @@ class CatsController < ApplicationController
 
   def edit
     @cat = Cat.find(params[:id])
-    render :edit
+    if @cat.user_id == current_user.id
+      render :edit
+    else
+      flash[:notice] = "That's not your cat dawg!"
+      redirect_to user_url(current_user)
+    end
   end
 
   def update
@@ -43,6 +48,6 @@ class CatsController < ApplicationController
 
   def cat_params
     params.require(:cat)
-      .permit(:age, :birth_date, :color, :description, :name, :sex)
+      .permit(:age, :birth_date, :color, :description, :name, :sex, :user_id)
   end
 end

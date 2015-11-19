@@ -13,8 +13,10 @@
       <h1><%=current_user.user_name%></h1>
       <p>Hello, <%=current_user.user_name%></p>
       <br>
-      <form action="/session/new" method="get">
-        <input type="hidden" method="_method" value="DELETE">
+      <%= button_to "Logout", session_url, method: :delete %>
+    <% else %>
+      <%= link_to "Sign up!", new_user_url %>
+
     <% end %>
 
 

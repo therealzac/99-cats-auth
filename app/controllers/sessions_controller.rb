@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :redirect_if_user, only: [:new, :create]
+
   def new
     render :new
   end
@@ -18,10 +20,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.reset_session_token! if current_user
-
+    # current_user.reset_session_token! if current_user
     logout!
-
-    render :new
+    redirect_to new_session_url
   end
 end

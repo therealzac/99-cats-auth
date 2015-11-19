@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
+  before_action :redirect_if_user, only: [:new, :create]
+
   def create
     @user = User.new(user_params)
     session[:session_token] = @user.generate_session_token
 
     if @user.save
-      redirect_to user_url
+      redirect_to user_url(@user)
     else
       render :new
     end
