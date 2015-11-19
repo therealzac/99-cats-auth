@@ -1,4 +1,6 @@
 class CatsController < ApplicationController
+  before_action
+
   def index
     @cats = Cat.all
     render :index
@@ -29,7 +31,7 @@ class CatsController < ApplicationController
     if @cat.user_id == current_user.id
       render :edit
     else
-      flash[:notice] = "That's not your cat dawg!"
+      flash[:errors] = "That's not your cat dawg!"
       redirect_to user_url(current_user)
     end
   end
